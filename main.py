@@ -72,7 +72,7 @@ def stat(id):
     try:
         stats = vk.stats.get(group_id=communityId, interval="day", intervals_count=10)
     except vk_api.exceptions.ApiError:
-        return redirect('/')
+        return render_template("error.html", title="error")
     print(communityId)
     print(stats)
     print(len(stats))
