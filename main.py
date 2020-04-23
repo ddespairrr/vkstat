@@ -52,7 +52,7 @@ def test():
 def stat(id):
     global communityId
 
-    login, password = "89022602020", "Pleasedonttouchmyaccountthanks!"
+    login, password = "", ""
     vk_session = vk_api.VkApi(login, password)
     try:
         vk_session.auth(token_only=True)
