@@ -8,6 +8,7 @@ import os
 import json
 from flask import jsonify
 from random import shuffle
+import requests
 
 
 
@@ -51,7 +52,7 @@ def test():
 def stat(id):
     global communityId
 
-    login, password = "", ""
+    login, password = "89022602020", "Pleasedonttouchmyaccountthanks!"
     vk_session = vk_api.VkApi(login, password)
     try:
         vk_session.auth(token_only=True)
@@ -59,8 +60,7 @@ def stat(id):
         print(error_msg)
         return
     vk = vk_session.get_api()
-    print(id)
-
+    #  print(id)
     try:
         communityId = int(id)
     except ValueError:
@@ -69,7 +69,10 @@ def stat(id):
 
     community = vk.groups.getById(group_id=id)
     #  print(community)
-    stats = vk.stats.get(group_id=communityId, interval="day", intervals_count=10)
+    try:
+        stats = vk.stats.get(group_id=communityId, interval="day", intervals_count=10)
+    except vk_api.exceptions.ApiError:
+        return redirect('/')
     print(communityId)
     print(stats)
     print(len(stats))
@@ -105,4 +108,5 @@ def stat(id):
 
 
 if __name__ == '__main__':
-    app.run(port=8080, host='127.0.0.1')
+    port = int(os.environ.get("PORT", 5000))
+    app.run(host='0.0.0.0', port=port)
