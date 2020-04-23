@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h1 style="color: #876c99">Statistics of community "{{ name }}" for past 10 days</h1>
+<hr noshade>
+
+{% set headers = ["Activities", "Ages", "Cities"] %}
+
+{% for i in range(3) %}
+    <h2 style="color: {{ colors[i] }}; margin-left: 5%">{{ headers[i] }}</h2>
+    {% for act in stats[i] %}
+        <table style="margin-left: 10%">
+            <td style="color: {{ colors[i] }};">{{ act }} - </td> <td>{{ stats[i][act] }}</td>
+
+        </table>
+    {% endfor %}
+    <hr noshade>
+{% endfor %}
+
+{% endblock %}
